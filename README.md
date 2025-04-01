@@ -4,13 +4,14 @@
 
 | Docker Hub URL | Kurzbeschreibung
 | ------- | ------- |
-| https://hub.docker.com/_/docker | Docker in Docker :-) |
+| https://hub.docker.com/r/dpage/pgadmin4 | Admin Interface für Postgres-SQL Datenbanken |
+| https://hub.docker.com/_/postgres | Offizielle postgres image für eine Postgres SQL-Datenbank |
 
 Für jedes Image eine Zeile in der Tabelle verwenden.
 
 ### Compose-File
 
-[Link zu Docker Compose File in diesem Repository](README.md)
+[Link zu Docker Compose File in diesem Repository](./container-app/docker-compose.yaml)
 
 ## Eigenes Lernjournal
 
@@ -18,6 +19,8 @@ Für jedes Image eine Zeile in der Tabelle verwenden.
 
 Manuelles Deployment und Netzwerk mit Docker (Dokumentation des Erstellungsprozesses und der 
 lauffähigen Applikation mit und ohne Netzwerk)
+
+To-DO:
 
 1. Erstellen und ausführen der einzelnen Container
 2. Mapping eines Netzwerks.
@@ -58,13 +61,17 @@ services:
       - postgres
 
 volumes:
-  postgres_data:
+  postgres_data: {}
 ```
+Mit dem CMD `docker compose up` habe ich das Docker Compose File ausgeführt. Dies hat mir alle definierten Images vom DockerHub gezogen. Danach konnte ich in Docker Desktop eine Orchestrierte Anwendung sehen. Über den Port `127.0.0.1:5050` (Localhost) konnte ich auf PGAdmin zugreifen. So hat das ganze ausgesehen mitsamt der Verbindung auf die DB `mydatabase`.
 
-### 
+![Screenshot der Anwendung](./assets/container-apps/pg_admin_with_postgresql.png)
 
- ✓ Docker Compose File erstellen, auf GitHub verfügbar machen und dieses ebenfalls testen/dokumentieren
+
+To-Do:
+
  ✓ Node Webapp mit Express: Eigene angepasste Version erstellen (z.B. Text), Vorgehen, Image und 
 Deployment dokumentieren
+
  ✓ DevOpsDemo: Eigene App (mit Anpassungen) bauen, lokal deployen und in Browser öffnen, 
 nachvollziehbare Dokumentati
