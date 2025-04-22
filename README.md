@@ -20,10 +20,43 @@ Für jedes Image eine Zeile in der Tabelle verwenden.
 Manuelles Deployment und Netzwerk mit Docker (Dokumentation des Erstellungsprozesses und der 
 lauffähigen Applikation mit und ohne Netzwerk)
 
-To-DO:
+Für die folgende Demo von zwei Container-Apps übernehme ich das Beispiel mit Wordpress und einer My-SQL Datenbank. Für diesen Case wurden folgende Container verwendet:
+- `mysql:9.1.0`
+- `wordpress:6.7.0-php8.3`
 
-1. Erstellen und ausführen der einzelnen Container
-2. Mapping eines Netzwerks.
+Zum Starten Container habe ich folgende Befehle über Power-Shell verwendet. Einmal für die SQL Datenbank:
+```shell
+docker run --name local-mysql -e MYSQL_ROOT_PASSWORD=12345 -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -v mysql-data:/var/lib/mysql -d mysql:9.1.0
+``` 
+und einmal für den Wordpress Container:
+```shell
+docker run --name local-wordpress -p 8082:80 -v wordpress-data:/var/www/html -d wordpress:6.7.0-php8.3 
+``` 
+
+Danach habe ich ein Netzwerk innerhalb von Docker erstellt, was die Kommunikation zwischen den Containern ermöglicht. Mit folgendem Befehlen konnte ich dies realisieren:
+
+Erstellung des Netzwerks in Docker:
+```shell
+docker network create wordpress-network 
+``` 
+
+Verbindung des MySQL-Containers mit Netzwerk 
+```shell
+docker network connect wordpress-network local-mysql
+``` 
+Dann als ich die Page über den Localhost:8082 aufrufen wollte, erhielt ich diesen Fehler:
+
+![DB Error](./assets/manual_db_network.png)
+
+Danach habe ich folgenden Befehl ausgeführt zur Verbindung des Wordpress-Containers mit Netzwerk:
+```shell
+docker network connect wordpress-network local-wordpress
+``` 
+
+![Output gut](./assets/manual_db_network_output.png)
+
+Danach habe ich folgenden Output erhalten. Ich hatte die DB bereits vorher einmal mit verbundne mit dem Wordpress-Container, deshalb musste ich dies nicht mehr machen.
+
 
 ### Docker-Compose mit 2 Applikationen
 
@@ -74,4 +107,4 @@ To-Do:
 Deployment dokumentieren
 
  ✓ DevOpsDemo: Eigene App (mit Anpassungen) bauen, lokal deployen und in Browser öffnen, 
-nachvollziehbare Dokumentati
+nachvollziehbare Dokumentation
