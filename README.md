@@ -101,10 +101,27 @@ Mit dem CMD `docker compose up` habe ich das Docker Compose File ausgeführt. Di
 ![Screenshot der Anwendung](./assets/container-apps/pg_admin_with_postgresql.png)
 
 
+## Custom Node Express App
+
+Analoges Vorgehen zu Folien. Neuer Unterordner erstellt `node-express-webapp` dann ergänzt mit `Dockerfile`, `package.json` und `server.js`. Letzteres wurde angepasst mit einem individuellen String.
+
+Danach Dockerfile gebuildet mit folgendem Befehl.
+```bash
+docker build -t simsta1/node-web-app .
+```
+
+Danach Image gestartet mit folgendem Befehl:
+```bash
+docker run -p 3000:3001 -d --name expressapp2 simsta1/node-web-app
+```
+
+Folgendes war der Output auf `Localhost:3000`
+
+![Screenshot Node web app](./assets/node-express-working-frontend.png)
+
+
 To-Do:
 
- ✓ Node Webapp mit Express: Eigene angepasste Version erstellen (z.B. Text), Vorgehen, Image und 
-Deployment dokumentieren
 
  ✓ DevOpsDemo: Eigene App (mit Anpassungen) bauen, lokal deployen und in Browser öffnen, 
 nachvollziehbare Dokumentation
