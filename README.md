@@ -120,8 +120,62 @@ Folgendes war der Output auf `Localhost:3000`
 ![Screenshot Node web app](./assets/node-express-working-frontend.png)
 
 
-To-Do:
+## DevopsDemo Eigene App
 
+Für diesen Fall habe ich das gesamte Repo in diesen geclonet. Nachher habe ich `model.json` den Titel angepasst, sowie auch 3 Kästchen für "ToDo-List" Liste eingefügt.
 
- ✓ DevOpsDemo: Eigene App (mit Anpassungen) bauen, lokal deployen und in Browser öffnen, 
-nachvollziehbare Dokumentation
+Sieh Code snippet hier:
+```json
+elementList": [
+                    {
+                        "type": "pageLabel",
+                        "value": "<h4>Willkommen bei DevOps 04 - Containers </h4>",
+                        "newRow": true
+                    },
+                    {
+                        "type": "button",
+                        "name": { "default": "ToDo-List"
+                        },
+                        "icon": "fa-file-alt",
+                        "color": "wet-asphalt",
+                        "page": "toDoPage",
+                        "width": 2,
+                        "newRow": true
+                    },
+                    {
+                        "type": "button",
+                        "name": { "default": "ToDo-List"
+                        },
+                        "icon": "fa-file-alt",
+                        "color": "wet-asphalt",
+                        "page": "toDoPage",
+                        "width": 2,
+                        "newRow": false
+                    },
+                    {
+                        "type": "button",
+                        "name": { "default": "ToDo-List"
+                        },
+                        "icon": "fa-file-alt",
+                        "color": "wet-asphalt",
+                        "page": "toDoPage",
+                        "width": 2,
+                        "newRow": false
+                    }
+                ]
+```
+
+Danach habe ich das Image gebuildet mit dem Befehl 
+
+```bash
+docker build -t devops/devopos-demo-containers
+```
+
+Nach erfolgreichem Build habe ich das Image dann in einem Container gestartet: 
+```bash
+docker run -p 9001:8080 --name dockerize-devopsdemo -v devopsdemo:/usr/src/app -d devops/devopos-demo-containers
+```
+
+Folgend sah der Output aus:
+![Screenshot DevOps Demo](./assets/devopsdemo-custom-app.png)
+
